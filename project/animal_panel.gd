@@ -16,7 +16,7 @@ func load_zoo():
 		square.name = animal
 		square.connect("pressed", change_animal.bind(animal))
 		square.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		
+		square.add_to_group("animals")
 		add_child(square)
 		square.z_index = 1
 

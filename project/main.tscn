@@ -71,7 +71,7 @@ offset_bottom = 450.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AnimalImage" type="TextureRect" parent="Canvas/Page/AnimalColor"]
+[node name="AnimalImage" type="TextureRect" parent="Canvas/Page/AnimalColor" groups=["animals"]]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -345,7 +345,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme = SubResource("Theme_efxa6")
 
-[node name="NextAnimalImage" type="TextureRect" parent="Canvas/Page/NextAnimalColor"]
+[node name="NextAnimalImage" type="TextureRect" parent="Canvas/Page/NextAnimalColor" groups=["animals"]]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15

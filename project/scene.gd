@@ -42,7 +42,13 @@ func update_text():
 		
 		###OUTLINE SIZE CANNOT BE SET TO 0 IN BBCODE
 		var ICText 
-		if outline:
+		if next_color == "BLACK" && color == "WHITE":
+			ICText = "I see %s [color=%s][outline_size=10][outline_color=white]%s %s[/outline_color][/outline_size][/color]\nlooking at me." % \
+			[article, 
+			Main._get_animal_color(Main.pageNum), 
+			next_col, 
+			Main._get_animal(Main.pageNum)]
+		elif outline:
 			ICText = "I see %s [color=%s][outline_size=10]%s %s[/outline_size][/color]\nlooking at me." % \
 			[article, 
 			Main._get_animal_color(Main.pageNum), 

@@ -46,10 +46,18 @@ func _scroll_left():
 	%ColorScroll.scroll_horizontal = 0
 
 func change_animal_color(new_color):
+	var current_color = Main._get_animal_color()
 	%AnimalColor.color = new_color
 	Main._set_animal_color(new_color)
 	%Page.update_text()
 	%Page.update_animal()
+	if new_color == "WHITE":
+		for animal in get_tree().get_nodes_in_group("animals"):
+			animal.material = load("res://inverse_material.tres")
+	elif current_color == "WHITE":
+		for animal in get_tree().get_nodes_in_group("animals"):
+			animal.material = null
+		
 	
 func _set_color_menu_visible(tf):
 	%ColorPanel.visible = tf
