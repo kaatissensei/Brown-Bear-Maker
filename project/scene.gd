@@ -31,43 +31,50 @@ func update_text():
 		var next_color = Main.get_simple_color(Main.pageNum)
 		var next_col: String = next_color[0].to_upper() + next_color.substr(1,-1).to_lower()
 		var article = "a"
-		var outline_size = "0"
+		var outline = false
 		match next_col.to_upper():
 			"ORANGE":
 				article = "an"
-			"YELLOW":
-				outline_size = "10"
-			"WHITE":
-				outline_size = "10"
+			"YELLOW", "WHITE", "PINK":
+				outline = true
 			_:
-				outline_size = "0"
+				outline = false
 		
-		var ICText = "I see %s [outline_size=%s][color=%s]%s %s[/color][/outline_size]\nlooking at me." % \
-		[article, 
-		outline_size,
-		Main._get_animal_color(Main.pageNum), 
-		next_col, 
-		Main._get_animal(Main.pageNum)]
-		 
+		###OUTLINE SIZE CANNOT BE SET TO 0 IN BBCODE
+		var ICText 
+		if outline:
+			ICText = "I see %s [color=%s][outline_size=10]%s %s[/outline_size][/color]\nlooking at me." % \
+			[article, 
+			Main._get_animal_color(Main.pageNum), 
+			next_col, 
+			Main._get_animal(Main.pageNum)]
+		else:  #No outline
+			ICText = "I see %s [color=%s]%s %s[/color]\nlooking at me." % \
+			[article, 
+			Main._get_animal_color(Main.pageNum), 
+			next_col, 
+			Main._get_animal(Main.pageNum)]
+		
 		%ISeeText.text = ICText
-	#Set text color
-	#if col.to_upper() == "WHITE" || col.to_upper() == "YELLOW":
-		#%ISeeText.add_theme_color_override("font_outline_color", Color.BLACK)
-		#%ISeeText.add_theme_constant_override("outline_size", 10)
-	#else:
-		#%ISeeText.add_theme_constant_override("outline_size", 0)
 
 func update_animal():
-	%AnimalColor.color = Main._get_animal_color()
+	var current_color = Main._get_animal_color()
+	%AnimalColor.color = current_color
 	var current_animal = Main._get_animal()
 	%AnimalImage.texture = load("res://images/%s.png" % current_animal)
 	
 	#Update NextAnimal
 	if Main.colors.size() > Main.pageNum:
-		%NextAnimalColor.color = Main._get_animal_color(Main.pageNum)
+		var next_color = Main._get_animal_color(Main.pageNum)
+		%NextAnimalColor.color = next_color
 		var next_animal = Main._get_animal(Main.pageNum)
-		%AnimalImage.texture = load("res://images/%s.png" % next_animal)
+		%NextAnimalImage.texture = load("res://images/%s.png" % next_animal)
 		%NextAnimalColor.visible = true
+		if current_color == "WHITE":
+			%NextAnimalImage.material = load("res://inverse_material.tres")
+		else:
+			%NextAnimalImage.material = null
+		
 	else:
 		%NextAnimalColor.visible = false
 
@@ -88,10 +95,13 @@ func dark_mode():
 func _next_page():
 	Main.next_page()
 	turn_page()
+	%PreviousPage.visible = true
 	
 func _previous_page():
 	Main.previous_page()
 	turn_page()
+	if Main.pageNum == 1:
+		%PreviousPage.visible = false
 
 func turn_page():
 	%PageNumber.text = str(Main.pageNum)

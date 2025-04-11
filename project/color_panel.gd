@@ -49,6 +49,7 @@ func change_animal_color(new_color):
 	%AnimalColor.color = new_color
 	Main._set_animal_color(new_color)
 	%Page.update_text()
+	%Page.update_animal()
 	
 func _set_color_menu_visible(tf):
 	%ColorPanel.visible = tf

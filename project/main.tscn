@@ -276,6 +276,8 @@ visible = false
 layout_mode = 2
 
 [node name="PreviousPage" type="Button" parent="Canvas/Page"]
+unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(50, 300)
 layout_mode = 1
 anchors_preset = 4
@@ -291,6 +293,7 @@ icon = ExtResource("7_272bh")
 icon_alignment = 1
 
 [node name="NextPage" type="Button" parent="Canvas/Page"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 300)
 layout_mode = 1
 anchors_preset = 6
