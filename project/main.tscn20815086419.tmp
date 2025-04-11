@@ -1,0 +1,339 @@
+[gd_scene load_steps=15 format=3 uid="uid://cg00dacgkj50"]
+
+[ext_resource type="Texture2D" uid="uid://ce3vedc810sfg" path="res://images/Bear.png" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://bg11k0y580cst" path="res://scene.gd" id="1_lquwl"]
+[ext_resource type="Theme" uid="uid://cix8dgqx66tpm" path="res://default_theme.tres" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://gn7bncqh1s52" path="res://images/bear head.png" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://b0je0bvkd7l5x" path="res://images/Rainbow.png" id="4_1bvp3"]
+[ext_resource type="ButtonGroup" uid="uid://cesk114un8xdu" path="res://page_buttons.tres" id="4_kek77"]
+[ext_resource type="Script" uid="uid://cqfltys856ada" path="res://color_panel.gd" id="6_7mycd"]
+[ext_resource type="Texture2D" uid="uid://c2o5lik1x6vil" path="res://images/arrow.png" id="7_272bh"]
+[ext_resource type="Script" uid="uid://dufhotb7m0ix0" path="res://animal_panel.gd" id="9_4c57u"]
+
+[sub_resource type="Theme" id="Theme_7mycd"]
+Button/constants/icon_max_width = 150
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/font_sizes/normal_font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vw27"]
+bg_color = Color(0.87451, 0.87451, 0.87451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.478431, 0.478431, 0.478431, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_272bh"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.478431, 0.478431, 0.478431, 1)
+corner_radius_top_left = 5
+
+[sub_resource type="Theme" id="Theme_kek77"]
+Button/constants/icon_max_width = 30
+Button/styles/normal = SubResource("StyleBoxFlat_5vw27")
+Button/styles/pressed = SubResource("StyleBoxFlat_272bh")
+
+[sub_resource type="Theme" id="Theme_4c57u"]
+default_font_size = 64
+
+[node name="Book" type="Node2D"]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="Page" type="ColorRect" parent="Canvas"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lquwl")
+
+[node name="AnimalColor" type="ColorRect" parent="Canvas/Page"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -450.0
+offset_right = 450.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.559349, 0.237359, 0, 1)
+
+[node name="AnimalImage" type="TextureRect" parent="Canvas/Page/AnimalColor"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_h2yge")
+expand_mode = 1
+
+[node name="ColorAnimalText" type="RichTextLabel" parent="Canvas/Page"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 21.0
+offset_right = 966.0
+offset_bottom = 258.0
+theme = SubResource("Theme_7mycd")
+theme_override_colors/default_color = Color(0.486275, 0.25098, 0.0784314, 1)
+theme_override_constants/outline_size = 0
+text = "Brown Bear, 
+Brown Bear,"
+fit_content = true
+scroll_active = false
+
+[node name="Wdysee" type="RichTextLabel" parent="Canvas/Page/ColorAnimalText"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 345.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7mycd")
+text = "What do you see?"
+vertical_alignment = 2
+
+[node name="ISee" type="RichTextLabel" parent="Canvas/Page"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -773.0
+offset_top = -179.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_7mycd")
+text = "I see a _____________"
+fit_content = true
+scroll_active = false
+
+[node name="LookingAtMe" type="RichTextLabel" parent="Canvas/Page/ISee"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7mycd")
+text = "looking at me."
+vertical_alignment = 2
+
+[node name="AnimalMenuButton" type="Button" parent="Canvas/Page"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 11.0
+offset_top = 902.0
+offset_right = 176.0
+offset_bottom = 1066.48
+theme = ExtResource("2_1bvp3")
+toggle_mode = true
+button_group = ExtResource("4_kek77")
+icon = ExtResource("3_lquwl")
+icon_alignment = 1
+
+[node name="ColorMenuButton" type="Button" parent="Canvas/Page"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 186.0
+offset_top = 902.0
+offset_right = 351.0
+offset_bottom = 1066.48
+theme = ExtResource("2_1bvp3")
+toggle_mode = true
+button_group = ExtResource("4_kek77")
+icon = ExtResource("4_1bvp3")
+icon_alignment = 1
+
+[node name="ColorPanel" type="Panel" parent="Canvas/Page"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 363.0
+offset_top = -180.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_1bvp3")
+
+[node name="ColorScroll" type="ScrollContainer" parent="Canvas/Page/ColorPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 44.0
+offset_top = 10.0
+offset_right = 1516.0
+offset_bottom = 170.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/Page/ColorPanel/ColorScroll"]
+clip_children = 1
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("6_7mycd")
+
+[node name="TextureButton" type="TextureButton" parent="Canvas/Page/ColorPanel/ColorScroll/HBoxContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="ScrollLeft" type="Button" parent="Canvas/Page/ColorPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 34.0
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+icon = ExtResource("7_272bh")
+icon_alignment = 1
+
+[node name="ScrollRight" type="Button" parent="Canvas/Page/ColorPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(17, 0)
+theme = SubResource("Theme_kek77")
+icon = ExtResource("7_272bh")
+icon_alignment = 1
+
+[node name="AnimalPanel" type="Panel" parent="Canvas/Page"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1551.0
+offset_right = -257.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("2_1bvp3")
+
+[node name="AnimalPanelColor" type="ColorRect" parent="Canvas/Page/AnimalPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 1, 1)
+
+[node name="GridContainer" type="GridContainer" parent="Canvas/Page/AnimalPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 6
+script = ExtResource("9_4c57u")
+
+[node name="TextureButton" type="TextureButton" parent="Canvas/Page/AnimalPanel/GridContainer"]
+visible = false
+layout_mode = 2
+
+[node name="PreviousPage" type="Button" parent="Canvas/Page"]
+custom_minimum_size = Vector2(50, 300)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -150.0
+offset_right = 70.0
+offset_bottom = 150.0
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+icon = ExtResource("7_272bh")
+icon_alignment = 1
+
+[node name="NextPage" type="Button" parent="Canvas/Page"]
+custom_minimum_size = Vector2(50, 300)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -17.0
+offset_bottom = 17.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(17, 0)
+theme = SubResource("Theme_kek77")
+icon = ExtResource("7_272bh")
+icon_alignment = 1
+
+[node name="PageNumber" type="RichTextLabel" parent="Canvas/Page"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -100.0
+offset_right = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_4c57u")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="toggled" from="Canvas/Page/AnimalMenuButton" to="Canvas/Page/AnimalPanel/GridContainer" method="_set_animal_menu_visible"]
+[connection signal="toggled" from="Canvas/Page/ColorMenuButton" to="Canvas/Page/ColorPanel/ColorScroll/HBoxContainer" method="_set_color_menu_visible"]
+[connection signal="pressed" from="Canvas/Page/ColorPanel/ScrollLeft" to="Canvas/Page/ColorPanel/ColorScroll/HBoxContainer" method="_scroll_left"]
+[connection signal="pressed" from="Canvas/Page/ColorPanel/ScrollRight" to="Canvas/Page/ColorPanel/ColorScroll/HBoxContainer" method="_scroll_right"]
+[connection signal="pressed" from="Canvas/Page/PreviousPage" to="Canvas/Page" method="_previous_page"]
+[connection signal="pressed" from="Canvas/Page/NextPage" to="Canvas/Page" method="_next_page"]
