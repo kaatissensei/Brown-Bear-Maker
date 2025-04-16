@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8dovqmmfieme"]
+
+[ext_resource type="Theme" uid="uid://cix8dgqx66tpm" path="res://default_theme.tres" id="1_8vqj7"]
+[ext_resource type="Script" uid="uid://dufhotb7m0ix0" path="res://animal_panel.gd" id="2_7w2an"]
+
+[node name="AnimalGrid" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimalPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -740.0
+offset_top = -495.0
+offset_right = 740.0
+offset_bottom = 495.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8vqj7")
+
+[node name="AnimalPanelColor" type="ColorRect" parent="AnimalPanel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -13.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.870588, 0.870588, 0.870588, 1)
+
+[node name="GridContainer" type="GridContainer" parent="AnimalPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 7.0
+offset_right = -14.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 6
+script = ExtResource("2_7w2an")
+
+[node name="TextureButton" type="TextureButton" parent="AnimalPanel/GridContainer"]
+layout_mode = 2

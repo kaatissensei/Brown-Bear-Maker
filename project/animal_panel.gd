@@ -2,6 +2,7 @@ extends Control
 const possible_animals = Main.possible_animals
 
 func _ready() -> void:
+	
 	load_zoo()
 	%AnimalPanelColor.color = Main._get_animal_color()
 	

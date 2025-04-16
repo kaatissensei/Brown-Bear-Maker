@@ -12,29 +12,38 @@ func update_text():
 	var ani: String = Main._get_animal()
 	var color: String = Main.get_simple_color()
 	var col: String = color[0].to_upper() + color.substr(1,-1).to_lower()
-	var col_ani = " %s %s," % [col, ani]
+	match ani:
+		"Goldfish", "Teacher", "Children":
+			col = ""
+		_: 
+			col = col + " "
+	
+	var col_ani = " %s%s," % [col, ani]
 	%ColorAnimalText.text = col_ani + "\n" + col_ani
 		
 	dark_mode()
 	#Set text color
 	%ColorAnimalText.add_theme_color_override("default_color", Main._get_animal_color())
-	if col.to_upper() == "WHITE" || col.to_upper() == "YELLOW":
+	if  color.to_upper() == "YELLOW" || color.to_upper() == "PINK": #can't use col because of the space added
 		%ColorAnimalText.add_theme_color_override("font_outline_color", Color.BLACK)
 		%ColorAnimalText.add_theme_constant_override("outline_size", 10)
+		print("add outline")
 	else:
 		%ColorAnimalText.add_theme_constant_override("outline_size", 0)
 	
 	#Update ISee Text
-	if (Main.colors.size() <= Main.pageNum):
-		%ISeeText.text = "I see a _____________\nlooking at me."
+	if (Main.pageNum >= Main.colors.size()):
+		if ani == "Children":
+			%ISeeText.text = ""
+		else:
+			%ISeeText.text = "I see a _____________\nlooking at me."
 	else:
 		var next_color = Main.get_simple_color(Main.pageNum)
-		var next_col: String = next_color[0].to_upper() + next_color.substr(1,-1).to_lower()
-		var article = "a"
+		var article = "a "
 		var outline = false
-		match next_col.to_upper():
+		match next_color.to_upper():
 			"ORANGE":
-				article = "an"
+				article = "an "
 			"YELLOW", "WHITE", "PINK":
 				outline = true
 			_:
@@ -42,28 +51,45 @@ func update_text():
 		
 		###OUTLINE SIZE CANNOT BE SET TO 0 IN BBCODE
 		var ICText 
-		if next_color == "BLACK" && color == "WHITE":
-			ICText = "I see %s [color=%s][outline_size=10][outline_color=white]%s %s[/outline_color][/outline_size][/color]\nlooking at me." % \
-			[article, 
-			Main._get_animal_color(Main.pageNum), 
-			next_col, 
-			Main._get_animal(Main.pageNum)]
-		elif outline:
-			ICText = "I see %s [color=%s][outline_size=10]%s %s[/outline_size][/color]\nlooking at me." % \
-			[article, 
-			Main._get_animal_color(Main.pageNum), 
-			next_col, 
-			Main._get_animal(Main.pageNum)]
-		else:  #No outline
-			ICText = "I see %s [color=%s]%s %s[/color]\nlooking at me." % \
-			[article, 
-			Main._get_animal_color(Main.pageNum), 
-			next_col, 
-			Main._get_animal(Main.pageNum)]
+		var color_text: String = Main._get_animal_color(Main.pageNum)
+		var animal_text: String = Main._get_animal(Main.pageNum)
+		var next_color_text: String = next_color[0].to_upper() + next_color.substr(1,-1).to_lower()
+		#var next_col_ani
 		
-		%ISeeText.text = ICText
+		if animal_text == "Children":
+			article = ""
+			
+		match animal_text:
+			"Goldfish", "Teacher", "Children":
+				next_color_text = ""
+			_: 
+				next_color_text = next_color_text + " "
+	
+		if next_color == "BLACK" && color == "WHITE":
+			ICText = "I see %s[color=%s][outline_size=10][outline_color=white]%s%s[/outline_color][/outline_size][/color]\nlooking at me." % \
+			[article, 
+			color_text, 
+			next_color_text, 
+			animal_text]
+		elif outline:
+			ICText = "I see %s[color=%s][outline_size=10]%s%s[/outline_size][/color]\nlooking at me." % \
+			[article, 
+			color_text, 
+			next_color_text, 
+			animal_text]
+		elif ani == "Children":
+			ICText = ""
+		else:  #No outline
+			ICText = "I see %s[color=%s]%s%s[/color]\nlooking at me." % \
+			[article, 
+			color_text, 
+			next_color_text, 
+			animal_text]
+		%ISeeText.text = ICText.replace("  ", " ")
 
-func update_animal():
+	
+
+func update_animal(): #image
 	var current_color = Main._get_animal_color()
 	%AnimalColor.color = current_color
 	var current_animal = Main._get_animal()
@@ -74,9 +100,12 @@ func update_animal():
 		var next_color = Main._get_animal_color(Main.pageNum)
 		%NextAnimalColor.color = next_color
 		var next_animal = Main._get_animal(Main.pageNum)
-		%NextAnimalImage.texture = load("res://images/%s.png" % next_animal)
+		if next_animal!= "LAST":
+			%NextAnimalImage.texture = load("res://images/%s.png" % next_animal)
+		else:
+			%NextAnimalImage.texture = null
 		%NextAnimalColor.visible = true
-		if current_color == "WHITE":
+		if next_color.to_upper() == "WHITE":
 			%NextAnimalImage.material = load("res://inverse_material.tres")
 		else:
 			%NextAnimalImage.material = null
@@ -99,15 +128,24 @@ func dark_mode():
 
 	
 func _next_page():
-	Main.next_page()
-	turn_page()
-	%PreviousPage.visible = true
+	if Main.animals[Main.pageNum-1] != "LAST":
+		Main.next_page()
+		if Main.animals[Main.pageNum-2] == "Children":
+				load_last_page()
+				%PageNumber.text = str(Main.pageNum)
+		else:
+			turn_page()
+		%PreviousPage.visible = true
 	
 func _previous_page():
-	Main.previous_page()
-	turn_page()
-	if Main.pageNum == 1:
-		%PreviousPage.visible = false
+	if Main.animals[Main.animals.size()-1] == "LAST" && Main.pageNum == 1:
+			Main.pageNum = Main.animals.size()
+	else:
+		%LastPage.visible = false
+		Main.previous_page()
+		turn_page()
+		if Main.pageNum == 1:
+			%PreviousPage.visible = false
 
 func turn_page():
 	%PageNumber.text = str(Main.pageNum)
@@ -117,3 +155,47 @@ func turn_page():
 	%AnimalMenuButton.button_pressed = false
 	%ColorPanel.visible = false
 	%ColorMenuButton.button_pressed = false
+
+
+func _open_menu() -> void:
+	if %Menu.is_visible_in_tree():
+		%Menu.visible = false
+	else:
+		%Menu.visible = true
+
+
+func _hide_menu() -> void:
+	%Menu.visible = false
+
+func _load_brown_bear():
+	Main.load_bb_book()
+	update_animal()
+	update_text()
+	%Menu.visible = false
+		
+func load_last_page():
+	var animal_square 
+	var animals_in_book = Main.animals
+	var colors_in_book = Main.colors
+	
+	%LastPage.visible = true
+	if %WeSeeGrid.get_child_count() == 0:
+		for i in range(animals_in_book.size() - 3):
+			animal_square = load("res://animal_color_and_image.tscn").instantiate()
+			animal_square.color = colors_in_book[i]
+			animal_square.get_child(0).texture = load("res://images/%s.png" % animals_in_book[i])
+			if colors_in_book[i] == "WHITE":
+				animal_square.get_child(0).material = load("res://inverse_material.tres")
+			%WeSeeGrid.add_child(animal_square)
+		
+	
+
+func _hide_last_page() -> void:
+	%LastPage.visible = false
+
+
+func _exit_book() -> void:
+	%LastPage.visible = false
+	Main.pageNum = 1
+	update_animal()
+	update_text()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cg00dacgkj50"]
+[gd_scene load_steps=25 format=3 uid="uid://cg00dacgkj50"]
 
 [ext_resource type="Texture2D" uid="uid://ce3vedc810sfg" path="res://images/Bear.png" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://bg11k0y580cst" path="res://scene.gd" id="1_lquwl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cqfltys856ada" path="res://color_panel.gd" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://c2o5lik1x6vil" path="res://images/arrow.png" id="7_272bh"]
 [ext_resource type="Script" uid="uid://dufhotb7m0ix0" path="res://animal_panel.gd" id="9_4c57u"]
+[ext_resource type="Script" uid="uid://c2gelpg37wlvu" path="res://flashcards.gd" id="10_4c57u"]
 
 [sub_resource type="Theme" id="Theme_7mycd"]
 Button/constants/icon_max_width = 150
@@ -42,6 +43,60 @@ Button/styles/pressed = SubResource("StyleBoxFlat_272bh")
 default_font_size = 64
 
 [sub_resource type="Theme" id="Theme_efxa6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4c57u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efxa6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg77c"]
+bg_color = Color(0.87451, 0.87451, 0.87451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.478431, 0.478431, 0.478431, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxa6"]
+bg_color = Color(0.87451, 0.87451, 0.87451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.478431, 0.478431, 0.478431, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
+bg_color = Color(0.87451, 0.87451, 0.87451, 1)
+border_width_left = 5
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 5
+border_color = Color(0.478431, 0.478431, 0.478431, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Gradient" id="Gradient_4c57u"]
+offsets = PackedFloat32Array(0.62, 0.625)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_efxa6"]
+gradient = SubResource("Gradient_4c57u")
+width = 300
+height = 300
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Theme" id="Theme_dg77c"]
+default_font_size = 130
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
 
 [node name="Book" type="Node2D"]
 
@@ -81,6 +136,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_h2yge")
 expand_mode = 1
+stretch_mode = 3
 
 [node name="ColorAnimalText" type="RichTextLabel" parent="Canvas/Page" groups=["text"]]
 unique_name_in_owner = true
@@ -278,6 +334,7 @@ layout_mode = 2
 [node name="PreviousPage" type="Button" parent="Canvas/Page"]
 unique_name_in_owner = true
 visible = false
+z_index = 5
 custom_minimum_size = Vector2(50, 300)
 layout_mode = 1
 anchors_preset = 4
@@ -294,6 +351,7 @@ icon_alignment = 1
 
 [node name="NextPage" type="Button" parent="Canvas/Page"]
 unique_name_in_owner = true
+z_index = 5
 custom_minimum_size = Vector2(50, 300)
 layout_mode = 1
 anchors_preset = 6
@@ -314,6 +372,7 @@ icon_alignment = 1
 
 [node name="PageNumber" type="RichTextLabel" parent="Canvas/Page" groups=["text"]]
 unique_name_in_owner = true
+z_index = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 5
@@ -329,6 +388,20 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="FlashCardButton" type="Button" parent="Canvas/Page"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme = ExtResource("2_1bvp3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "FC"
+icon_alignment = 1
 
 [node name="NextAnimalColor" type="ColorRect" parent="Canvas/Page"]
 unique_name_in_owner = true
@@ -356,9 +429,296 @@ grow_vertical = 2
 texture = ExtResource("1_h2yge")
 expand_mode = 1
 
+[node name="Menu" type="Button" parent="Canvas/Page"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_1bvp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4c57u")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_efxa6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_efxa6")
+
+[node name="MenuPanel" type="Panel" parent="Canvas/Page/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -538.0
+offset_top = -412.5
+offset_right = 538.0
+offset_bottom = 412.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_1bvp3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dg77c")
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/Page/Menu/MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/Page/Menu/MenuPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="ColorFCBtn" type="Button" parent="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "View Color Flashcards"
+
+[node name="BBAnimalFCBtn" type="Button" parent="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "View Book Animal Flashcards"
+
+[node name="CustomAnimalFCBtn" type="Button" parent="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "View All Animal Flashcards"
+
+[node name="ReadBookBtn" type="Button" parent="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Read \"Brown Bear, Brown Bear\""
+
+[node name="LastPage" type="ColorRect" parent="Canvas/Page"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WeeSee" type="RichTextLabel" parent="Canvas/Page/LastPage" groups=["text"]]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 24.0
+offset_right = 970.0
+offset_bottom = 282.0
+theme = SubResource("Theme_7mycd")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
+text = "We see"
+fit_content = true
+scroll_active = false
+
+[node name="WeSeeGrid" type="GridContainer" parent="Canvas/Page/LastPage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -866.0
+offset_top = -386.0
+offset_right = 834.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="LookingAtUs" type="RichTextLabel" parent="Canvas/Page/LastPage" groups=["text"]]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -613.0
+offset_top = -182.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_7mycd")
+bbcode_enabled = true
+text = "looking at us.
+That's what we see."
+fit_content = true
+scroll_active = false
+
+[node name="ExitButton" type="Button" parent="Canvas/Page/LastPage"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -81.0
+offset_bottom = 81.0
+grow_horizontal = 0
+theme = ExtResource("2_1bvp3")
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxFlat_efxa6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4c57u")
+text = "X"
+icon_alignment = 1
+
+[node name="Flashcards" type="ColorRect" parent="Canvas"]
+unique_name_in_owner = true
+visible = false
+z_index = 15
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_4c57u")
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/Flashcards"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 536
+theme_override_constants/margin_right = 536
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/Flashcards/MarginContainer"]
+layout_mode = 2
+
+[node name="FCAnimalColor" type="ColorRect" parent="Canvas/Flashcards/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+color = Color(0, 1, 1, 1)
+
+[node name="FCAnimalImage" type="TextureRect" parent="Canvas/Flashcards/MarginContainer/VBoxContainer/FCAnimalColor" groups=["animals"]]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_h2yge")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ColoredCircle" type="TextureRect" parent="Canvas/Flashcards/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+texture = SubResource("GradientTexture2D_efxa6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FlashcardText" type="RichTextLabel" parent="Canvas/Flashcards/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_dg77c")
+text = "elephant"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PreviousCard" type="Button" parent="Canvas/Flashcards"]
+custom_minimum_size = Vector2(50, 300)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -150.0
+offset_right = 70.0
+offset_bottom = 150.0
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+icon = ExtResource("7_272bh")
+icon_alignment = 1
+
+[node name="NextCard" type="Button" parent="Canvas/Flashcards"]
+custom_minimum_size = Vector2(50, 300)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -17.0
+offset_bottom = 17.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(17, 0)
+theme = SubResource("Theme_kek77")
+icon = ExtResource("7_272bh")
+icon_alignment = 1
+
+[node name="ExitButton" type="Button" parent="Canvas/Flashcards"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -81.0
+offset_bottom = 81.0
+grow_horizontal = 0
+theme = ExtResource("2_1bvp3")
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = SubResource("StyleBoxFlat_efxa6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4c57u")
+text = "X"
+icon_alignment = 1
+
 [connection signal="toggled" from="Canvas/Page/AnimalMenuButton" to="Canvas/Page/AnimalPanel/GridContainer" method="_set_animal_menu_visible"]
 [connection signal="toggled" from="Canvas/Page/ColorMenuButton" to="Canvas/Page/ColorPanel/ColorScroll/HBoxContainer" method="_set_color_menu_visible"]
 [connection signal="pressed" from="Canvas/Page/ColorPanel/ScrollLeft" to="Canvas/Page/ColorPanel/ColorScroll/HBoxContainer" method="_scroll_left"]
 [connection signal="pressed" from="Canvas/Page/ColorPanel/ScrollRight" to="Canvas/Page/ColorPanel/ColorScroll/HBoxContainer" method="_scroll_right"]
 [connection signal="pressed" from="Canvas/Page/PreviousPage" to="Canvas/Page" method="_previous_page"]
 [connection signal="pressed" from="Canvas/Page/NextPage" to="Canvas/Page" method="_next_page"]
+[connection signal="pressed" from="Canvas/Page/FlashCardButton" to="Canvas/Page" method="_open_menu"]
+[connection signal="pressed" from="Canvas/Page/Menu" to="Canvas/Page" method="_hide_menu"]
+[connection signal="pressed" from="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer/ColorFCBtn" to="Canvas/Flashcards" method="_show_flashcards" binds= [0]]
+[connection signal="pressed" from="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer/BBAnimalFCBtn" to="Canvas/Flashcards" method="_show_flashcards" binds= [1]]
+[connection signal="pressed" from="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer/CustomAnimalFCBtn" to="Canvas/Flashcards" method="_show_flashcards" binds= [2]]
+[connection signal="pressed" from="Canvas/Page/Menu/MenuPanel/MarginContainer/VBoxContainer/ReadBookBtn" to="Canvas/Page" method="_load_brown_bear"]
+[connection signal="pressed" from="Canvas/Page/LastPage/ExitButton" to="Canvas/Page" method="_exit_book"]
+[connection signal="pressed" from="Canvas/Flashcards/PreviousCard" to="Canvas/Flashcards" method="_previous_card"]
+[connection signal="pressed" from="Canvas/Flashcards/NextCard" to="Canvas/Flashcards" method="_next_card"]
+[connection signal="pressed" from="Canvas/Flashcards/ExitButton" to="Canvas/Flashcards" method="_exit"]
