@@ -590,6 +590,7 @@ icon_alignment = 1
 
 [node name="Flashcards" type="ColorRect" parent="Canvas"]
 unique_name_in_owner = true
+visible = false
 z_index = 15
 anchors_preset = 15
 anchor_right = 1.0
