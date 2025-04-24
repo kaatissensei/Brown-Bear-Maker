@@ -179,6 +179,7 @@ offset_top = -182.0
 offset_right = -184.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 theme = SubResource("Theme_7mycd")
 bbcode_enabled = true
 text = "I see a _____________
@@ -253,6 +254,7 @@ stretch_mode = 5
 
 [node name="ScrollLeft" type="Button" parent="Canvas/Page/ColorPanel"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 1
 anchors_preset = 9
@@ -265,6 +267,7 @@ icon_alignment = 1
 
 [node name="ScrollRight" type="Button" parent="Canvas/Page/ColorPanel"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -416,6 +419,7 @@ offset_left = -180.0
 offset_top = -180.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 theme = SubResource("Theme_efxa6")
 
 [node name="NextAnimalImage" type="TextureRect" parent="Canvas/Page/NextAnimalColor" groups=["animals"]]
@@ -426,6 +430,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_h2yge")
 expand_mode = 1
 

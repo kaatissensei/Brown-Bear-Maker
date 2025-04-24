@@ -20,8 +20,9 @@ const possible_animals = [
 	 "Pig", "Dolphin", "Shark", "Elephant", "Lion", 
 	 "Penguin", "Koala", "Giraffe", "Camel"
 ]
+
 const animal_colors = [   #used for all animal flashcards
-	"BURLYWOOD", "PURPLE", "SADDLE_BROWN", "RED", "CHOCOLATE",
+	"BURLYWOOD", "FLORAL_WHITE", "SADDLE_BROWN", "RED", "CHOCOLATE",
 	"GREEN", "BLACK", "RED", "GRAY", "BLACK",
 	"ORANGE", "PINK", "FOREST_GREEN", "LAWN_GREEN", "DARK_SLATE_GRAY",
 	"PINK", "SKY_BLUE", "DIM_GRAY", "GRAY", "GOLDENROD",
